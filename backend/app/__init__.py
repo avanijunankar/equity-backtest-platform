@@ -1,0 +1,1 @@
+"""Equity Backtesting Platform - Backend."""
