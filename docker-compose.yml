@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: equity_backtest_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: backtest_user
+      POSTGRES_PASSWORD: backtest_pass
+      POSTGRES_DB: equity_backtest
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U backtest_user -d equity_backtest"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
